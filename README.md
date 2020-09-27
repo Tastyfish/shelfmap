@@ -11,4 +11,4 @@
 
 ## Run:
 * Run ``rails server``
-* See frontend project at [tastyfish/shelfmap-frontend](https://github.com/Tastyfish/shelfmap-backend) for frontend server.
+* See frontend project at [tastyfish/shelfmap-frontend](https://github.com/Tastyfish/shelfmap-frontend) for frontend server.
