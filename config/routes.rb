@@ -8,6 +8,9 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :shelves
       resources :products
+
+      get 'site', controller: :site, action: :show
+      patch 'site', controller: :site, action: :update
     end
   end
 
