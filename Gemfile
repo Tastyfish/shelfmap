@@ -41,3 +41,7 @@ gem "jsonapi_errors_handler", "~> 0.3.0"
 gem "devise", "~> 4.7"
 
 gem "devise-jwt", "~> 0.8.0"
+
+gem "pg", "~> 1.2"
+
+gem "appengine", "~> 0.5.0"
