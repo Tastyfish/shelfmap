@@ -1,12 +1,11 @@
 class ApplicationController < ActionController::API
+  respond_to :json
+
   include JsonapiErrorsHandler
   ErrorMapper.map_errors!({
     'ActiveRecord::RecordNotFound' => 'JsonapiErrorsHandler::Errors::NotFound'
   })
   rescue_from ::StandardError, with: lambda { |e| handle_error(e) }
-
-  include JWTSessions::RailsAuthorization
-  rescue_from JWTSessions::Errors::Unauthorized, with: :unauthorized
 
   def route_not_found
     render json: {
@@ -18,14 +17,31 @@ class ApplicationController < ActionController::API
           pointer: "/:path"
         }
       ]
-    }
+    }, status: :not_found
+  end
+
+  def render_resource(resource)
+    if resource.errors.empty?
+      render json: resource
+    else
+      validation_error(resource)
+    end
+  end
+
+  def validation_error(resource)
+    render json: {
+      errors: [
+        {
+          status: '400',
+          title: 'Bad Request',
+          detail: resource.errors,
+          code: '100'
+        }
+      ]
+    }, status: :bad_request
   end
 
   private
-
-  def current_user
-    @current_user ||= User.find(payload['user_id'])
-  end
 
   def not_authorized
     render json: { error: 'Not Authorized' }, status: :unauthorized

@@ -1,8 +1,11 @@
 Rails.application.routes.draw do
-  post 'signup', controller: :signup, action: :create
-  post 'refresh', controller: :refresh, action: :create
-  post 'signin', controller: :signin, action: :create
-  delete 'signin', controller: :signin, action: :destroy
+  devise_for :users,
+    path: 'user/v1',
+    controllers: {
+      registrations: 'user/v1/registrations',
+      sessions: 'user/v1/sessions'
+    },
+    defaults: { format: :json }
 
   namespace :api do
     namespace :v1 do
@@ -11,6 +14,8 @@ Rails.application.routes.draw do
 
       get 'site', controller: :site, action: :show
       patch 'site', controller: :site, action: :update
+
+      get 'user', controller: :user, action: :show
     end
   end
 

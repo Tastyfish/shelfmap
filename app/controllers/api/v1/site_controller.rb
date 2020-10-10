@@ -2,7 +2,7 @@ module Api
   module V1
     class SiteController < ApplicationController
       before_action :set_site
-      before_action :authorize_access_request!, except: [:show]
+      before_action :authenticate_user!, except: [:show]
 
       # GET /site
       def show
@@ -29,7 +29,7 @@ module Api
       end
 
       def settings_params
-        params.permit(:site_name, :account_creation_enabled?, :map_name)
+        params.require(:site).permit(:site_name, :account_creation_enabled?, :map_name)
       end
     end
   end

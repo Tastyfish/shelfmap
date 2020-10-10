@@ -2,7 +2,7 @@ module Api
   module V1
     class ShelvesController < ApplicationController
       before_action :set_shelf, only: [:show, :update, :destroy]
-      before_action :authorize_access_request!, except: [:show, :index]
+      before_action :authenticate_user!, except: [:show, :index]
 
       # GET /shelves
       def index
