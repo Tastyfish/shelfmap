@@ -12,7 +12,7 @@ module Api
       # PATCH /site
       def update
         settings_params.keys.each do |key|
-          Setting.send("#{key}=", settings_params[key].strip) unless settings_params[key].nil?
+          Setting.send("#{key}=", settings_params[key]) unless settings_params[key].nil?
         end
 
         show
