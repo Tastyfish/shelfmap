@@ -26,6 +26,6 @@ production:
   pool: 5
   timeout: 5000
   username: "shelfmap_production"
-  password: "EpxU9Y*TA%w@S6"
+  password: <%= ENV["DB_PASS"] %>
   database: "shelfmap_production"
   host:   "/cloudsql/shelfmap:us-east1:rails-sql"
